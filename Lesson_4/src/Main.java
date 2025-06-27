@@ -1,11 +1,14 @@
 import task_1.Animal;
 import task_1.Cat;
 import task_1.Dog;
+import task_2.Circle;
+import task_2.Rectangle;
+import task_2.Triangle;
 
 public class Main {
 
     public static void main(String[] args) {
-        getTask_1();
+
     }
     public static void getTask_1(){
         Animal cow = new Animal("Мурка");
@@ -41,5 +44,14 @@ public class Main {
         for (Cat c : cats){
             c.eat(25);
         }
+    }
+
+    public static void getTask_2(){
+        Triangle triangle = new Triangle(2, 3, 4, "Green", "Blue");
+        triangle.printProperties();
+        Rectangle rectangle = new Rectangle(3, 4, "Red", "Yellow");
+        rectangle.printProperties();
+        Circle circle = new Circle(4, "Grey", "Black");
+        circle.printProperties();
     }
 }
