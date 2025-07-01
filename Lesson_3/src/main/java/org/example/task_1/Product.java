@@ -25,28 +25,4 @@ public class Product {
         System.out.println("Цена: " + price);
         System.out.println("Состояние бронирования покупателем: " + bookingStatus);
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getProductionDate() {
-        return productionDate;
-    }
-
-    public String getManufacture() {
-        return manufacture;
-    }
-
-    public String getOriginCountry() {
-        return originCountry;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public boolean isBookingStatus() {
-        return bookingStatus;
-    }
 }

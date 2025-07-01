@@ -2,7 +2,7 @@ package org.example.task_3;
 
 
 public class Park {
-    String parkName;
+    private String parkName;
 
     public Park(String parkName) {
         this.parkName = parkName;
