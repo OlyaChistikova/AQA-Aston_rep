@@ -1,27 +1,24 @@
-package task_2;
+package org.example.task_2;
 
-public class Rectangle implements InfoPrintable{
-    private double length;
-    private double width;
+public class Circle implements InfoPrintable{
+    private double r;
     private String backgroundColor;
     private String borderColor;
 
-    public Rectangle(double length, double width, String backgroundColor, String borderColor){
-        this.length = length;
-        this.width = width;
+    public Circle(double r, String backgroundColor, String borderColor){
+        this.r = r;
         this.backgroundColor = backgroundColor;
         this.borderColor = borderColor;
     }
 
-
     @Override
     public double getPerimeter() {
-        return (this.length + this.width) * 2.0;
+        return Math.PI * 2.0 * this.r;
     }
 
     @Override
     public double getSquare() {
-        return this.length * this.width;
+        return Math.PI * this.r * this.r;
     }
 
     @Override
@@ -36,7 +33,7 @@ public class Rectangle implements InfoPrintable{
 
     @Override
     public void printProperties() {
-        System.out.println("Характеристика для прямоугольника со сторонами: " + this.length + ", " + this.width + ":");
+        System.out.println("Характеристика круга с радиусом " + this.r + ":");
         InfoPrintable.super.printProperties();
     }
 }

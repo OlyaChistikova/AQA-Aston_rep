@@ -1,4 +1,4 @@
-package task_2;
+package org.example.task_2;
 
 public class Triangle implements InfoPrintable{
     private double a;

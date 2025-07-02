@@ -1,4 +1,4 @@
-package task_2;
+package org.example.task_2;
 
 public interface InfoPrintable {
     double getPerimeter();
