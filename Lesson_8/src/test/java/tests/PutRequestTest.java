@@ -7,29 +7,49 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
 
-public class PutRequestTest extends BaseTest{
+public class PutRequestTest extends BaseTest {
+
     @Test
-    public void testPutRequestStatus() {
+    public void testPutRequestPositive() {
         Response response = given()
                 .contentType(ContentType.JSON)
-                .body("This is expected to be sent back as part of response body.") // Замените на данные, которые вы хотите отправить
+                .body("This is expected to be sent back as part of response body.")
                 .when()
-                .put(BASE_URL + PUT);
+                .put(BASE_URL + PUT)
+                .then()
+                .log().all()
+                .statusCode(200)
+                .extract().response();
+        ;
 
-        // Проверка статуса ответа
-        assertEquals(response.getStatusCode(), 200, "Expected status code is 200");
+        String responseDataBody = response.jsonPath().getString("data");
+        assertEquals(responseDataBody, "This is expected to be sent back as part of response body.", "Response body does not contain the expected text.");
     }
 
     @Test
-    public void testPutRequestBodyJson() {
+    public void testPutRequestWithOutParamsBody() {
         Response response = given()
-                .contentType(ContentType.JSON)
-                .body("This is expected to be sent back as part of response body.") // Замените на данные, которые вы хотите отправить
                 .when()
-                .put(BASE_URL + PUT);
+                .put(BASE_URL + PUT)
+                .then()
+                .log().all()
+                .statusCode(200)
+                .extract().response();
+        ;
 
-        // Проверка наличия "data" в теле ответа
-        String responseDataBody = response.jsonPath().getString("data");
-        assertEquals(responseDataBody, "This is expected to be sent back as part of response body.", "Response body does not contain the expected text.");
+        String responseDataBody = response.jsonPath().getString("content-length");
+        assertEquals(responseDataBody, null, "Response body does not contain the expected text.");
+    }
+
+    @Test
+    public void testPutRequestWithOutParameters() {
+        given()
+                .baseUri(BASE_URL)
+                .when()
+                .get(PUT)
+                .then()
+                .log().all()
+                .assertThat()
+                .statusCode(404);
     }
 }

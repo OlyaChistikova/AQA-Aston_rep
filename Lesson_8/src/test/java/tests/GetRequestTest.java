@@ -21,4 +21,17 @@ public class GetRequestTest extends BaseTest {
                 .body("args.foo1", Matchers.equalTo("bar1"))
                 .body("args.foo2", Matchers.equalTo("bar2"));
     }
+
+    @Test
+    public void testGetRequestWithOutParameters() {
+        given()
+                .baseUri(BASE_URL)
+                .when()
+                .get(GET)
+                .then()
+                .log().all()
+                .assertThat()
+                .statusCode(200)
+                .body("headers.host", Matchers.equalTo("postman-echo.com"));
+    }
 }

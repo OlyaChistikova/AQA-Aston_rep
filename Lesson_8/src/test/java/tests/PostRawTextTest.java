@@ -13,7 +13,6 @@ import static org.testng.Assert.assertNotEquals;
 
 public class PostRawTextTest extends BaseTest {
 
-
     @Test
     public void testPostRawTextPositive() throws IOException {
         String jsonBody = new String(Files.readAllBytes(Paths.get("src/test/resources/requestBody.json")));
@@ -47,5 +46,17 @@ public class PostRawTextTest extends BaseTest {
 
         String str = response.jsonPath().getString("json.test");
         assertNotEquals(str, "default", "Response body does not contain the expected text.");
+    }
+
+    @Test(description = "Негативная проверка без параметров в body")
+    public void testPostRawTextWithOutParameters() {
+        given()
+                .baseUri(BASE_URL)
+                .when()
+                .get(POST)
+                .then()
+                .log().all()
+                .assertThat()
+                .statusCode(404);
     }
 }

@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.*;
 
-public class PostFormDataTest extends BaseTest{
+public class PostFormDataTest extends BaseTest {
 
     @Test
     public void testPostFormDataPositive() {
@@ -21,10 +21,8 @@ public class PostFormDataTest extends BaseTest{
                 .log().all()
                 .extract().response();
 
-        // Проверяем статус ответа
         assertEquals(response.getStatusCode(), 200, "Response status is not OK");
 
-        // Проверяем, что тело ответа содержит ожидаемые значения
         assertEquals(response.jsonPath().getString("form.foo1"), "bar1", "Response body does not contain the expected value for foo1.");
         assertEquals(response.jsonPath().getString("form.foo2"), "bar2", "Response body does not contain the expected value for foo2.");
     }
@@ -41,11 +39,21 @@ public class PostFormDataTest extends BaseTest{
                 .log().all()
                 .extract().response();
 
-        // Проверяем статус ответа
         assertEquals(response.getStatusCode(), 200, "Response status is not OK");
 
-        // Проверяем, что тело ответа не содержит ожидаемые значения
         assertNotEquals(response.jsonPath().getString("form.foo3"), "default", "Response body contains the expected value for foo1.");
+    }
+
+    @Test
+    public void testPostFormDataWithOutParameters() {
+        given()
+                .baseUri(BASE_URL)
+                .when()
+                .get(POST)
+                .then()
+                .log().all()
+                .assertThat()
+                .statusCode(404);
     }
 
 }
