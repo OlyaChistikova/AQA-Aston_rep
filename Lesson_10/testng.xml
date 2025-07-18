@@ -1,0 +1,24 @@
+<suite name="Verification Suite">
+    <test name="Lesson 9 Test">
+        <classes>
+            <class name="tests.CheckNameBlockTest"/>
+            <class name="tests.CheckPayLogosTest"/>
+            <class name="tests.CheckLinkTest"/>
+            <class name="tests.FillFieldsAndCheckOperationTest">
+            <methods>
+                <exclude name="testCheckPayDescriptionText"/>
+                <exclude name="testCheckPayDescriptionCost"/>
+                <exclude name="testCheckPayDescriptionCostButton"/>
+                <exclude name="testCheckFieldLabels"/>
+                <exclude name="testCheckLogos"/>
+            </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Lesson 10 Test">
+        <classes>
+            <class name="tests.CheckPlaceHoldersTest"/>
+            <class name="tests.FillFieldsAndCheckOperationTest"/>
+        </classes>
+    </test>
+</suite>
