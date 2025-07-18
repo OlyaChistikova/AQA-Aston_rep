@@ -1,6 +1,7 @@
 package tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
@@ -19,6 +20,7 @@ public class BaseTest {
     protected static final String BASE_URL = "https://www.mts.by";
 
     @BeforeClass
+    @Step("Initializing the driver")
     public void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();

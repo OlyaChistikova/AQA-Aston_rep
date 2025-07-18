@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -14,6 +15,7 @@ public class CookiePage extends BasePage{
         super(driver);
     }
 
+    @Step("Cookie Rejection")
     public void dismissCookies(){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
         try{

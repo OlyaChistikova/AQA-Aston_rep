@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,10 +27,10 @@ public class TestPage extends BasePage{
     private By payDescriptionTextLocator = By.xpath("//div[@class='pay-description__text']/span");
     private By payDescriptionCostLocator = By.xpath("//div[@class='pay-description__cost']/span");
     private By payDescriptionCostButtonLocator = By.xpath("//div[@class='card-page__card']/button");
-    private By creditCardLocator = By.xpath("/html/body/app-root/div/div/div/app-payment-container/section/div/app-card-page/div/div[1]/app-card-input/form/div[1]/div[1]/app-input");
-    private By expirationDateLocator = By.xpath("/html/body/app-root/div/div/div/app-payment-container/section/div/app-card-page/div/div[1]/app-card-input/form/div[1]/div[2]/div[1]/app-input/div/div/div[1]/label");
-    private By cvcLocator = By.xpath("/html/body/app-root/div/div/div/app-payment-container/section/div/app-card-page/div/div[1]/app-card-input/form/div[1]/div[2]/div[3]/app-input/div/div/div[1]/label");
-    private By ccNameLocator = By.xpath("/html/body/app-root/div/div/div/app-payment-container/section/div/app-card-page/div/div[1]/app-card-input/form/div[1]/div[3]/app-input/div/div/div[1]/label");
+    private By creditCardLocator = By.xpath("//app-input[contains(@class, 'full-width') and .//input[@id='cc-number']]//label");
+    private By expirationDateLocator = By.xpath("//div[contains(@class, 'expires-input')]//label");
+    private By cvcLocator = By.xpath("//div[contains(@class, 'cvc')]//label");
+    private By ccNameLocator = By.xpath("//app-input[contains(@class, 'full-width') and .//input[@autocomplete='cc-name']]//label");
     private By cardsBrandsLocator = By.xpath("//div[contains(@class, 'cards-brands__container')]");
 
 
@@ -52,6 +53,7 @@ public class TestPage extends BasePage{
         return listLink;
     }
 
+    @Step("Choosing the 'Communication Services' service")
     public WebElement fillSelectHolder(){
         WebElement selectHolder = driver.findElement(selectHolderLocator);
         selectHolder.click();
@@ -60,6 +62,7 @@ public class TestPage extends BasePage{
         return payConnection;
     }
 
+    @Step("Entering a number 297777777")
     public WebElement fillNumberHolder(){
         WebElement numberHolder = driver.findElement(connectionPhoneLocator);
         numberHolder.click();
@@ -81,6 +84,7 @@ public class TestPage extends BasePage{
         return element.getAttribute("value");
     }
 
+    @Step("Checking for compliance")
     public void checkShouldPass (String enteredValue, boolean shouldPass){
         if (shouldPass){
             try {
@@ -99,6 +103,7 @@ public class TestPage extends BasePage{
         }
     }
 
+    @Step("Filling in the email field")
     public WebElement fillEmailHolder(String emailAddress){
         WebElement emailHolder = driver.findElement(connectionEmailLocator);
         emailHolder.click();
@@ -122,6 +127,7 @@ public class TestPage extends BasePage{
         return button;
     }
 
+    @Step("Waiting for the frame to appear")
     public void waitAndSwitchToFrame() {
         new WebDriverWait(driver, Duration.ofSeconds(2)).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(connectionFrameLocator));
     }
@@ -160,11 +166,13 @@ public class TestPage extends BasePage{
         return driver.findElement(ccNameLocator);
     }
 
+    @Step("Getting a list of PayIcons")
     public List<WebElement> getPayIcons(){
         WebElement container = driver.findElement(cardsBrandsLocator);
         return container.findElements(By.tagName("img"));
     }
 
+    @Step("Choosing a service")
     public WebElement checkPayConnection(String option){
         WebElement selectHolder = driver.findElement(selectHolderLocator);
         selectHolder.click();
@@ -172,10 +180,10 @@ public class TestPage extends BasePage{
         return driver.findElement(By.xpath("//option[@value='" + option + "']"));
     }
 
+    @Step("Getting the id of the number field by data-open service field")
     public String checkNumberPayConnection(WebElement webElement){
         String locatorForm = webElement.getAttribute("data-open");
         WebElement numberHolder = driver.findElement(By.xpath("//*[@id='" + locatorForm + "']//input[@type='text']"));
         return numberHolder.getAttribute("placeholder");
     }
-
 }

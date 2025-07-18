@@ -7,7 +7,7 @@ import pages.TestPage;
 
 public class CheckNameBlockTest extends BaseTest{
 
-    @Test(description = "Check name block")
+    @Test(description = "Check the name of the specified block")
     public void testCheckNameBlock() {
         TestPage testPage = new TestPage(driver);
         Assert.assertNotNull( testPage.сheckNameBlock(), "Blog 'Онлайн пополнение без комиссии' not found.");

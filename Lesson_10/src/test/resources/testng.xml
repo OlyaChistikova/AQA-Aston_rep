@@ -4,15 +4,8 @@
             <class name="tests.CheckNameBlockTest"/>
             <class name="tests.CheckPayLogosTest"/>
             <class name="tests.CheckLinkTest"/>
-            <class name="tests.FillFieldsAndCheckOperationTest">
-            <methods>
-                <exclude name="testCheckPayDescriptionText"/>
-                <exclude name="testCheckPayDescriptionCost"/>
-                <exclude name="testCheckPayDescriptionCostButton"/>
-                <exclude name="testCheckFieldLabels"/>
-                <exclude name="testCheckLogos"/>
-            </methods>
-            </class>
+            <class name="tests.FillFieldsAndCheckOperationTest"/>
+
         </classes>
     </test>
     <test name="Lesson 10 Test">

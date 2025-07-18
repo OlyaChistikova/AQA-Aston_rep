@@ -32,20 +32,20 @@ public class FillFieldsAndCheckOperationTest extends BaseTest {
         };
     }
 
-    @Test
+    @Test(description = "Choice of services")
     public void testFillSelectHolder() {
         TestPage testPage = new TestPage(driver);
         Assert.assertNotNull(testPage.fillSelectHolder(), "The field was not filled in");
         Assert.assertEquals(testPage.fillSelectHolder().getText(), "Услуги связи");
     }
 
-    @Test(dependsOnMethods = {"testFillSelectHolder"})
+    @Test(dependsOnMethods = {"testFillSelectHolder"}, description = "Filling in the phone field")
     public void testFillNumberHolder() {
         TestPage testPage = new TestPage(driver);
         Assert.assertNotNull(testPage.fillNumberHolder(), "The field was not filled in");
     }
 
-    @Test(dependsOnMethods = {"testFillNumberHolder"}, dataProvider = "sumHolderValues")
+    @Test(dependsOnMethods = {"testFillNumberHolder"}, dataProvider = "sumHolderValues", description = "Filling in the amount field")
     public void testFillSumHolder(String value, boolean shouldPass) {
         TestPage testPage = new TestPage(driver);
 
@@ -55,7 +55,7 @@ public class FillFieldsAndCheckOperationTest extends BaseTest {
         Assert.assertNotNull(testPage.fillSumHolder(value, shouldPass), "The field was not filled in");
     }
 
-    @Test(dataProvider = "emailHolderValues", dependsOnMethods = {"testFillSumHolder"})
+    @Test(dataProvider = "emailHolderValues", dependsOnMethods = {"testFillSumHolder"}, description = "Filling in the email field")
     public void testFillEmailHolder(String emailAddress, boolean shouldMatch) {
         TestPage testPage = new TestPage(driver);
 
@@ -65,7 +65,7 @@ public class FillFieldsAndCheckOperationTest extends BaseTest {
         Assert.assertEquals(testPage.patternMatches(emailAddress), shouldMatch, "Email validation failed for: " + emailAddress);
     }
 
-    @Test(dependsOnMethods = {"testFillEmailHolder"})
+    @Test(dependsOnMethods = {"testFillEmailHolder"}, description = "Click the continue button")
     public void testCheckOperationButton() {
         TestPage testPage = new TestPage(driver);
         testPage.clickContinueButton();
@@ -73,7 +73,7 @@ public class FillFieldsAndCheckOperationTest extends BaseTest {
         Assert.assertNotNull(testPage.clickContinueButton(), "Button not found");
     }
 
-    @Test(dependsOnMethods = {"testCheckOperationButton"})
+    @Test(dependsOnMethods = {"testCheckOperationButton"}, description = "Checking for compliance with the entered number")
     public void testCheckPayDescriptionText() {
         TestPage testPage = new TestPage(driver);
         testPage.waitAndSwitchToFrame();
@@ -86,7 +86,7 @@ public class FillFieldsAndCheckOperationTest extends BaseTest {
                 "The text of the payment description does not match what is expected");
     }
 
-    @Test(dependsOnMethods = {"testCheckPayDescriptionText"})
+    @Test(dependsOnMethods = {"testCheckPayDescriptionText"}, description = "Checking for compliance with the entered amount")
     public void testCheckPayDescriptionCost() {
         TestPage testPage = new TestPage(driver);
 
@@ -98,7 +98,7 @@ public class FillFieldsAndCheckOperationTest extends BaseTest {
                 "The text of the payment description does not match what is expected");
     }
 
-    @Test(dependsOnMethods = {"testCheckPayDescriptionCost"})
+    @Test(dependsOnMethods = {"testCheckPayDescriptionCost"}, description = "Checking for compliance with the entered amount on the button")
     public void testCheckPayDescriptionCostButton() {
         TestPage testPage = new TestPage(driver);
 
@@ -110,7 +110,7 @@ public class FillFieldsAndCheckOperationTest extends BaseTest {
                 "The text of the payment description does not match what is expected");
     }
 
-    @Test(dependsOnMethods = {"testCheckPayDescriptionCostButton"})
+    @Test(dependsOnMethods = {"testCheckPayDescriptionCostButton"}, description = "Checking fields for names")
     public void testCheckFieldLabels() {
         TestPage testPage = new TestPage(driver);
 
@@ -121,7 +121,7 @@ public class FillFieldsAndCheckOperationTest extends BaseTest {
         Assert.assertEquals(testPage.checkCcName().getText(), "Имя и фамилия на карте");
     }
 
-    @Test(dependsOnMethods = {"testCheckFieldLabels"})
+    @Test(dependsOnMethods = {"testCheckFieldLabels"}, description = "Checking payment icons for availability")
     public void testCheckLogos() {
         TestPage testPage = new TestPage(driver);
 

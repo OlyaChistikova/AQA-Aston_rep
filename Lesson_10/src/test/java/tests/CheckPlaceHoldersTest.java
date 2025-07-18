@@ -17,7 +17,7 @@ public class CheckPlaceHoldersTest extends BaseTest{
         };
     }
 
-    @Test(dataProvider = "getHolderValues")
+    @Test(dataProvider = "getHolderValues", description = "Check the labels in the blank fields of each payment option")
     public void testPayConnectionPlaceHolder(String nameOption, String textNumber) {
         TestPage testPage = new TestPage(driver);
         String option = testPage.getEnteredValue(testPage.checkPayConnection(nameOption));

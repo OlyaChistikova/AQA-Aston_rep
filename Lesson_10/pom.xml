@@ -5,28 +5,41 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>Lesson_10</artifactId>
+    <artifactId>seleniumwd_test</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- Новые переменные -->
+        <aspectj.version>1.9.22</aspectj.version>
+        <suiteXml>testng.xml</suiteXml>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>7.10.2</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+        <!-- Selenium WebDriver -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.33.0</version>
+            <version>4.19.1</version>
+        </dependency>
+
+        <!-- Библиотека TestNG -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.7.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Allure для TestNG -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>2.27.0</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
@@ -36,25 +49,50 @@
             <version>6.1.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
+        <!-- AspectJ Weaver — требуется для работы плагина Allure -->
         <dependency>
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-testng</artifactId>
-            <version>2.29.1</version>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <!-- Плагин Maven Surefire — запускает тесты и передаёт результаты Allure -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.20</version>
+                <configuration>
+                    <systemProperties>
+                        <property>
+                            <name>allure.results.directory</name>
+                            <value>${project.build.directory}/allure-results</value>
+                        </property>
+                    </systemProperties>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>src/test/resources/${suiteXml}</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <!-- Плагин Allure Maven — собирает и формирует HTML-отчёты на основе результатов тестов -->
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
-                <version>2.9</version>
+                <version>2.10.0</version>
                 <configuration>
-                    <reportVersion>2.6.0</reportVersion>
+                    <reportVersion>2.14.0</reportVersion>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>
