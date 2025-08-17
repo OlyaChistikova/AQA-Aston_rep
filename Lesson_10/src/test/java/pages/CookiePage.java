@@ -2,14 +2,15 @@ package pages;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class CookiePage extends BasePage{
-    private final By cookieWrapper = By.className("cookie__wrapper");
-    private final By dismissLocator = By.xpath("//button[text()='Отклонить']");
+    @FindBy(className = "cookie__wrapper")
+    private WebElement cookieWrapper;
+
+    @FindBy(xpath = "//button[text()='Отклонить']")
+    private WebElement dismissButton;
 
     public CookiePage(WebDriver driver) {
         super(driver);
@@ -17,11 +18,9 @@ public class CookiePage extends BasePage{
 
     @Step("Cookie Rejection")
     public void dismissCookies(){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
         try{
-            wait.until(ExpectedConditions.visibilityOfElementLocated(cookieWrapper));
-
-            WebElement dismissButton =  wait.until(ExpectedConditions.elementToBeClickable(dismissLocator));
+            wait.until(ExpectedConditions.visibilityOf(cookieWrapper));
+            wait.until(ExpectedConditions.elementToBeClickable(dismissButton));
             dismissButton.click();
         } catch (NoSuchElementException e) {
             System.out.println("Dismiss button not found: " + e.getMessage());

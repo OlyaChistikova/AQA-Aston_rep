@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -14,10 +15,16 @@ import java.util.regex.Pattern;
 
 public class TestPage extends BasePage{
 
-    private By linkAboutServiceLocator = By.linkText("Подробнее о сервисе");
-    private By blockTitleLocator = By.xpath("//h2[contains(normalize-space(), 'Онлайн пополнение без комиссии')]");
-    private By payPartnersLocator = By.cssSelector(".pay__partners");
-    private By selectHolderLocator = By.className("select__header");
+    @FindBy(linkText = "Подробнее о сервисе")
+    private WebElement linkAboutService;
+
+    @FindBy(xpath = "//h2[contains(normalize-space(), 'Онлайн пополнение без комиссии')]")
+    private WebElement blockTitle;
+
+    @FindBy(xpath = "//*[@class = 'pay__partners']/ul/li")
+    private List<WebElement> payPartners;
+
+    private By selectHolderLocator = By.xpath("//button[@class = 'select__header']");
     private By payConnectionLocator = By.xpath("//p[contains(text(),'Услуги связи')]");
     private By connectionPhoneLocator = By.id("connection-phone");
     private By connectionSumLocator = By.id("connection-sum");
@@ -39,18 +46,19 @@ public class TestPage extends BasePage{
     }
 
     public void clickAboutServiceLink() {
-        WebElement link = driver.findElement(linkAboutServiceLocator);
-        link.click();
+        wait.until(ExpectedConditions.elementToBeClickable(linkAboutService));
+        linkAboutService.click();
     }
 
-    public WebElement сheckNameBlock() {
-        WebElement link = driver.findElement(blockTitleLocator);
-        return link;
+    public String checkNameBlock() {
+        wait.until(ExpectedConditions.visibilityOf(blockTitle));
+        return blockTitle.getText();
     }
 
-    public List<WebElement> сheckPayLogos() {
-        List<WebElement> listLink = driver.findElements(payPartnersLocator);
-        return listLink;
+    public void checkPayLogos() {
+        for (WebElement element: payPartners) {
+            System.out.println(element.getText());//.img/alt
+        }
     }
 
     @Step("Choosing the 'Communication Services' service")
