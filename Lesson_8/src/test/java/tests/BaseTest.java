@@ -1,8 +1,5 @@
 package tests;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
 public class BaseTest {
     protected static final String BASE_URL = "https://postman-echo.com";
     protected static final String GET = "/get";

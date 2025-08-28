@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNull;
 
 public class PutRequestTest extends BaseTest {
 
@@ -38,7 +39,7 @@ public class PutRequestTest extends BaseTest {
         ;
 
         String responseDataBody = response.jsonPath().getString("content-length");
-        assertEquals(responseDataBody, null, "Response body does not contain the expected text.");
+        assertNull(responseDataBody, "Response body does not contain the expected text.");
     }
 
     @Test
